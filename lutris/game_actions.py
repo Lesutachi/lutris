@@ -63,6 +63,7 @@ class GameActions:
             ("configure", _("Configure"), self.on_edit_game_configuration),
             ("favorite", _("Add to favorites"), self.on_add_favorite_game),
             ("deletefavorite", _("Remove from favorites"), self.on_delete_favorite_game),
+            ("duplicate", _("Duplicate"), self.on_duplicate),
             ("execute-script", _("Execute script"), self.on_execute_script_clicked),
             ("browse", _("Browse files"), self.on_browse_files),
             (
@@ -125,6 +126,7 @@ class GameActions:
             "remove": self.game.is_installed,
             "view": True,
             "hide": not self.game.is_hidden,
+            "duplicate": True,
             "unhide": self.game.is_hidden,
         }
 
@@ -236,3 +238,7 @@ class GameActions:
     def on_remove_game(self, *_args):
         """Callback that present the uninstall dialog to the user"""
         UninstallGameDialog(game_id=self.game.id, parent=self.window)
+
+    def on_duplicate(self, *_args):
+        """Callback to duplicate a game entry"""
+        self.game.duplicate()

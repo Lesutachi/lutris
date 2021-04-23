@@ -12,7 +12,7 @@ from gi.repository import GLib, GObject, Gtk
 
 from lutris import runtime, settings
 from lutris.command import MonitoredCommand
-from lutris.config import LutrisConfig
+from lutris.config import LutrisConfig, make_game_config_id
 from lutris.database import categories as categories_db
 from lutris.database import games as games_db
 from lutris.database import sql
@@ -30,6 +30,7 @@ from lutris.util.graphics.xephyr import get_xephyr_command
 from lutris.util.graphics.xrandr import turn_off_except
 from lutris.util.linux import LINUX_SYSTEM
 from lutris.util.log import LOG_BUFFERS, logger
+from lutris.util.strings import slugify
 from lutris.util.timer import Timer
 
 HEARTBEAT_DELAY = 2000
@@ -666,3 +667,34 @@ class Game(GObject.Object):
                 old_location, new_location, ex
             )
         return target_directory
+
+    def duplicate(self):
+        """Duplicates the game"""
+        new_game = Game()
+        new_game.name = self.name + " Copy"
+        new_game.slug = slugify(new_game.name)
+        new_game.year = self.year
+        new_game.runner = self.runner
+        new_game.runner_name = self.runner_name
+
+        logger.info("Creating new configuration with runner %s", new_game.runner_name)
+        lutris_config = LutrisConfig(runner_slug=new_game.runner_name, level="game")
+        lutris_config.game_config_id = make_game_config_id(new_game.slug)
+
+        lutris_config.game_config = self.config.game_config
+        lutris_config.runner_config = self.config.runner_config
+        lutris_config.system_config = self.config.system_config
+        lutris_config.raw_game_config = self.config.raw_game_config
+        lutris_config.raw_runner_config = self.config.raw_runner_config
+        lutris_config.raw_system_config = self.config.raw_system_config
+        lutris_config.raw_config = self.config.raw_config
+        lutris_config.game_level = self.config.game_level
+        lutris_config.runner_level = self.config.runner_level
+        lutris_config.system_level = self.config.system_level
+
+        new_game.game_config_id = lutris_config.game_config_id
+        new_game.config = lutris_config
+
+        new_game.directory = self.runner.game_path
+        new_game.is_installed = True
+        new_game.save(save_config=True)
