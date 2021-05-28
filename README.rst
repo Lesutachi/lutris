@@ -1,31 +1,29 @@
+****
+About this fork
+****
+
+Added the "duplicate" menu function in the "lesutachi/duplicate" branch.
+It was added over the latest released version, not the master branch.
+
 ******
 Lutris
 ******
 
 |LiberaPayBadge|_
 
-Lutris helps you install and play video games from all eras and from most
-gaming systems. By leveraging and combining existing emulators, engine
-re-implementations and compatibility layers, it gives you a central interface
-to launch all your games.
 
-The client can connect with existing services like Humble Bundle, GOG and Steam
-to make your game libraries easily available. Game downloads and installations
-are automated and can be modified through user made scripts.
 
-Running Lutris
-==============
+Lutris is an open source gaming platform that makes gaming on Linux easier by
+managing, installing and providing optimal settings for games.
 
-If you have not installed Lutris through your package manager and are using the
-source package, it is recommended that you install lutris at least once, even an
-older version to have all dependencies available.
-Once all dependencies are satisfied, you can run lutris directly from the source
-directory with `./bin/lutris`
+Lutris does not sell games. For commercial games, you must own a copy to install
+the game on Lutris.
+The platform uses programs referred to as 'runners' to launch games,
+Those runners (with the exception of Steam and web browsers) are provided and
+managed by Lutris, so you don't need to install them with your package manager.
 
-If you need to run lutris through gdb to troubleshoot segmentation faults, you
-can use the following command:
-
-`gdb -ex r --args "/usr/bin/python3" "./bin/lutris"`
+Scripts written by the community allow access to a library of games.
+Using scripts, games can be played without manual setup.
 
 Installer scripts
 =================
