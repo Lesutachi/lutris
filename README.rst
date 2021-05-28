@@ -1,5 +1,5 @@
 ****
-#About this fork
+About this fork
 ****
 
 Added the "duplicate" menu function in the "lesutachi/duplicate" branch.
