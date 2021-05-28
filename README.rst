@@ -1,3 +1,10 @@
+****
+#About this fork
+****
+
+Added the "duplicate" menu function in the "lesutachi/duplicate" branch.
+It was added over the latest released version, not the master branch.
+
 ******
 Lutris
 ******
